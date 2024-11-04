@@ -22,8 +22,9 @@
 // #################################################
 
 #include <stdio.h>
-#include "PrimeiroUltimoNomeMATRICULA.h" // Substitua pelo seu arquivo de header renomeado
+#include "RafaelSilva20232160032.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#define MAX 100 //definindo minha constante 
 
 DataQuebrada quebraData(char data[]);
 
@@ -93,6 +94,30 @@ int teste(int a)
 int q1(char data[])
 {
   int datavalida = 1;
+  int tamanhoDaData = strlen(data) -1; //pegar o tamanho sem o /0
+  char sDia[MAX], sMes[MAX], sAno[MAX]; 
+  
+  if(tamanhoDaData > 10 ){
+    return datavalida=0; // Checa o tamanho e retorna uma data invalida
+  }
+
+  int verificarDia= 1, verificarMes =1, verificarAno =1; 
+  for( int i =0; i < tamanhoDaData ; i++){
+
+   if(verificarDia == 1){ //Verifica se Dia esta apto para receber 
+      if(data[i] == '/'){ // verfica se data encontra um '/' para dia nao receber mais 
+        verificarDia = 0;
+      } else {
+        sDia[i]= data[i]; 
+      }
+   } else 
+
+    
+
+
+  }
+
+  
 
   //quebrar a string data em strings sDia, sMes, sAno
 
