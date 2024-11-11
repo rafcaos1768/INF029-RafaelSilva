@@ -27,6 +27,7 @@
 #define MAX 100 //definindo minha constante 
 
 DataQuebrada quebraData(char data[]);
+int validarLogica(int dia, int mes, int ano);
 
 /*
 ## função utilizada para testes  ##
@@ -94,40 +95,22 @@ int teste(int a)
 int q1(char data[])
 {
   int datavalida = 1;
+  DataQuebrada Mhdata;
   int tamanhoDaData = strlen(data) -1; //pegar o tamanho sem o /0
-  char sDia[MAX], sMes[MAX], sAno[MAX]; 
   
-  if(tamanhoDaData > 10 ){
-    return datavalida=0; // Checa o tamanho e retorna uma data invalida
-  }
-
-  int verificarDia= 1, verificarMes =1, verificarAno =1; 
-  for( int i =0; i < tamanhoDaData ; i++){
-
-   if(verificarDia == 1){ //Verifica se Dia esta apto para receber 
-      if(data[i] == '/'){ // verfica se data encontra um '/' para dia nao receber mais 
-        verificarDia = 0;
-      } else {
-        sDia[i]= data[i]; 
-      }
-   } else 
-
-    
-
-
-  }
-
+  Mhdata = quebraData(data); //quebrar a data e armazear em 
   
-
-  //quebrar a string data em strings sDia, sMes, sAno
-
-
-  //printf("%s\n", data);
-
-  if (datavalida)
-      return 1;
-  else
+  if(Mhdata.valido == 0){
+    return 0; //Barrar as datas com erros de sintese 
+  } else {
+    int verficarLogica = validarLogica(Mhdata.iDia, Mhdata.iMes, Mhdata.iAno);
+    if (verficarLogica == 0){
       return 0;
+    }
+  }
+
+ 
+    return 1;
 }
 
 
@@ -253,11 +236,11 @@ DataQuebrada quebraData(char data[]){
 	char sAno[5];
 	int i; 
 
-	for (i = 0; data[i] != '/'; i++){
+	for (i = 0; data[i] != '/'; i++){ //atribui ate achar o 
 		sDia[i] = data[i];	
 	}
 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
-		sDia[i] = '\0';  // coloca o barra zero no final
+		sDia[i] = '\0';  // coloca o barra zero no final 
 	}else {
 		dq.valido = 0;
     return dq;
@@ -304,3 +287,27 @@ DataQuebrada quebraData(char data[]){
   return dq;
 }
 
+int validarLogica(int dia, int mes, int ano){
+    
+  
+   // Verificar datas irreais
+    if (ano > 2024 || ano < 1900 || mes < 1 || mes > 12 || dia < 1 || dia > 31) {
+        return 0;
+    }
+    
+    // Verificar o mês de fevereiro considerando ano bissexto e não bissexto
+    if (mes == 2) {
+        int bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
+        if ((bissexto && dia > 29) || (!bissexto && dia > 28)) {
+            return 0;
+        }
+    }
+
+    // Verificar meses com 30 dias (abril, junho, setembro e novembro)
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
+        return 0;
+    }
+
+    // Se todas as condições forem satisfeitas, a data é válida
+    return 1;
+}
