@@ -168,6 +168,19 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 int q3(char *texto, char c, int isCaseSensitive)
 {
     int qtdOcorrencias = -1;
+    
+    if(isCaseSensitive == 1){ //deve considerar ou maiuscula ou minuscula
+      if(c >= 'A' && c <='Z'){ //verificar se eh maiuscula 
+
+      } else if (c>= 'a' && c <='z'){ //verifica se eh minuscula 
+
+      }
+
+    } else { //nao eh caseSensitive 
+
+    }
+
+
 
     return qtdOcorrencias;
 }
