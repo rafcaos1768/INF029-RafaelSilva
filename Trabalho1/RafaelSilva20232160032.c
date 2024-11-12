@@ -96,7 +96,7 @@ int q1(char data[])
 {
   int datavalida = 1;
   DataQuebrada Mhdata;
-  int tamanhoDaData = strlen(data) -1; //pegar o tamanho sem o /0
+  //int tamanhoDaData = strlen(data) -1; //pegar o tamanho sem o /0
   
   Mhdata = quebraData(data); //quebrar a data e armazear em 
   
