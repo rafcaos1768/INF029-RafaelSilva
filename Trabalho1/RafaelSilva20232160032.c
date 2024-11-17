@@ -20,10 +20,10 @@
 // Última atualização: 07/05/2021 - 19/08/2016
 
 // #################################################
-
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include "RafaelSilva20232160032.h" // Substitua pelo seu arquivo de header renomeado
-#include <stdlib.h>
 #define MAX 100 //definindo minha constante 
 
 DataQuebrada quebraData(char data[]);
@@ -193,18 +193,23 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
-    
-    if(isCaseSensitive == 1){ //deve considerar ou maiuscula ou minuscula
-      if(c >= 'A' && c <='Z'){ //verificar se eh maiuscula 
+    int qtdOcorrencias = 0;
+    int tamanhoDoTexto = strlen(texto) -1;
 
-      } else if (c>= 'a' && c <='z'){ //verifica se eh minuscula 
-
+    if(isCaseSensitive == 1){ //deve considerar a diferença entre maiuscula ou minuscula
+      for (int i=0; i < tamanhoDoTexto; i++){
+        if(c == texto[i]){
+          qtdOcorrencias ++; 
+        }
       }
 
-    } else { //nao eh caseSensitive 
-
-    }
+    } else { // eh caseSensitive 
+        for (int i=0; i < tamanhoDoTexto; i++){
+          if(c == texto[i] || (c >= 'A' && c <= 'Z' && c + 32 == texto[i]) || (c >= 'a' && c <= 'z' && c - 32 == texto[i])){
+          qtdOcorrencias ++;  
+          }
+        }
+      }
 
 
 
