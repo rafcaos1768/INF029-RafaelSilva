@@ -132,27 +132,53 @@ int q1(char data[])
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
 
-    //calcule os dados e armazene nas três variáveis a seguir
-    DiasMesesAnos dma;
+  //calcule os dados e armazene nas três variáveis a seguir
+  DiasMesesAnos dma;
+  DataQuebrada datafinalq2; 
+  DataQuebrada datainicialq2; 
 
-    if (q1(datainicial) == 0){
-      dma.retorno = 2;
-      return dma;
-    }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
-      return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
+  if (q1(datainicial) == 0){ //utiliza a q1 para ver se eh valida
+    dma.retorno = 2;
+    return dma;
+  }else if (q1(datafinal) == 0){
+    dma.retorno = 3;
+    return dma;
+  }else{
+    //verifique se a data final não é menor que a data inicial
+    datainicialq2 = quebraData(datainicial);
+    datafinalq2 = quebraData (datafinal); 
       
-      //calcule a distancia entre as datas
+    if (datainicialq2.iAno > datafinalq2.iAno) { 
+      // Verifica se o ano da data inicial é maior que o ano da data final
+      dma.retorno = 4;
+     return dma; 
+    } else if (datainicialq2.iAno == datafinalq2.iAno) { 
+        // Se os anos são iguais, verifica o mês
+        if (datainicialq2.iMes > datafinalq2.iMes) {
+          dma.retorno = 4;
+          return dma; 
+        } else if (datainicialq2.iMes == datafinalq2.iMes) { 
+            // Se os meses também são iguais, verifica o dia
+            if (datainicialq2.iDia > datafinalq2.iDia) {
+              dma.retorno = 4;
+              return dma; 
+            }
+          }
+      }
+
+    // Continua a execução caso nenhuma condição de erro seja atendida
+    //calcule a distancia entre as datas
+    dma.qtdDias = datafinalq2.iDia - datainicialq2.iDia;
+    dma.qtdMeses = datafinalq2.iMes - datainicialq2.iMes;
+    dma.qtdAnos = datafinalq2.iAno - datainicialq2.iAno;
 
 
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
-    }
+    //se tudo der certo
+    dma.retorno = 1;
+    return dma;
     
+  }
+  
 }
 
 /*
@@ -324,3 +350,61 @@ int validarLogica(int dia, int mes, int ano){
     // Se todas as condições forem satisfeitas, a data é válida
     return 1;
 }
+
+// // DiasMesesAnos quebraDataq2(char data[]){
+//   DiasMesesAnos dq;
+//   char sDia[3];
+// 	char sMes[3];
+// 	char sAno[5];
+// 	int i; 
+
+// 	for (i = 0; data[i] != '/'; i++){ //atribui ate achar o 
+// 		sDia[i] = data[i];	
+// 	}
+// 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
+// 		sDia[i] = '\0';  // coloca o barra zero no final 
+// 	}else {
+// 		dq.retorno = 0;
+//     return dq;
+//   }  
+	
+
+// 	int j = i + 1; //anda 1 cada para pular a barra
+// 	i = 0;
+
+// 	for (; data[j] != '/'; j++){
+// 		sMes[i] = data[j];
+// 		i++;
+// 	}
+
+// 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
+// 		sMes[i] = '\0';  // coloca o barra zero no final
+// 	}else {
+// 		dq.retorno = 0;
+//     return dq;
+//   }
+	
+
+// 	j = j + 1; //anda 1 cada para pular a barra
+// 	i = 0;
+	
+// 	for(; data[j] != '\0'; j++){
+// 	 	sAno[i] = data[j];
+// 	 	i++;
+// 	}
+
+// 	if(i == 2 || i == 4){ // testa se tem 2 ou 4 digitos
+// 		sAno[i] = '\0';  // coloca o barra zero no final
+// 	}else {
+// 		dq.retorno = 0;
+//     return dq;
+//   }
+
+//   dq.qtdDias = atoi(sDia);
+//   dq.qtdMeses = atoi(sMes);
+//   dq.qtdAnos = atoi(sAno); 
+
+// 	dq.retorno = 1;
+    
+//   return dq;
+// }
