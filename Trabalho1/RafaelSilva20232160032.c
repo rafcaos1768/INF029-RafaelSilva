@@ -28,6 +28,7 @@
 
 DataQuebrada quebraData(char data[]);
 int validarLogica(int dia, int mes, int ano);
+int verificarDivisibilidade(int numero);
 
 /*
 ## função utilizada para testes  ##
@@ -233,7 +234,22 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+
+    int textoLen = strlen(strTexto);
+    int buscaLen = strlen(strBusca);
+    
+    // Percorre o texto buscando ocorrências de strBusca
+    for (int i = 0; i <= textoLen - buscaLen; i++) {
+        // Verifica se a substring a partir de 'i' corresponde a strBusca
+        if (strncmp(&strTexto[i], strBusca, buscaLen) == 0) {
+            // Armazena a posição de início e fim da ocorrência
+            posicoes[qtdOcorrencias * 2] = i + 1;  // Índice começa de 1
+            posicoes[qtdOcorrencias * 2 + 1] = i + buscaLen;  // Índice final
+
+            qtdOcorrencias++;  // Incrementa a contagem de ocorrências
+        }
+    }
 
     return qtdOcorrencias;
 }
@@ -250,8 +266,16 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+  int cont=0; 
+  int invertido = 0;
 
-    return num;
+  while (num != 0) {
+      invertido = invertido * 10 + (num % 10);
+      num /= 10;
+  }
+
+  num =invertido;
+  return num;
 }
 
 /*
@@ -266,7 +290,23 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+
+    int qtdOcorrencias =0;
+    int digitos = verificarDivisibilidade(numerobase);
+    int divisor = 1;
+    
+      while (numerobusca / divisor >= 1) {
+        divisor *= 10;
+    }
+
+    // Percorre numerobase e verifica ocorrências de numerobusca
+    while (numerobase >= numerobusca) {
+        if (numerobase % divisor == numerobusca) {
+            qtdOcorrencias++;
+        }
+        numerobase /= 10;
+    }
+
     return qtdOcorrencias;
 }
 
@@ -356,60 +396,15 @@ int validarLogica(int dia, int mes, int ano){
     return 1;
 }
 
-// // DiasMesesAnos quebraDataq2(char data[]){
-//   DiasMesesAnos dq;
-//   char sDia[3];
-// 	char sMes[3];
-// 	char sAno[5];
-// 	int i; 
-
-// 	for (i = 0; data[i] != '/'; i++){ //atribui ate achar o 
-// 		sDia[i] = data[i];	
-// 	}
-// 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
-// 		sDia[i] = '\0';  // coloca o barra zero no final 
-// 	}else {
-// 		dq.retorno = 0;
-//     return dq;
-//   }  
-	
-
-// 	int j = i + 1; //anda 1 cada para pular a barra
-// 	i = 0;
-
-// 	for (; data[j] != '/'; j++){
-// 		sMes[i] = data[j];
-// 		i++;
-// 	}
-
-// 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
-// 		sMes[i] = '\0';  // coloca o barra zero no final
-// 	}else {
-// 		dq.retorno = 0;
-//     return dq;
-//   }
-	
-
-// 	j = j + 1; //anda 1 cada para pular a barra
-// 	i = 0;
-	
-// 	for(; data[j] != '\0'; j++){
-// 	 	sAno[i] = data[j];
-// 	 	i++;
-// 	}
-
-// 	if(i == 2 || i == 4){ // testa se tem 2 ou 4 digitos
-// 		sAno[i] = '\0';  // coloca o barra zero no final
-// 	}else {
-// 		dq.retorno = 0;
-//     return dq;
-//   }
-
-//   dq.qtdDias = atoi(sDia);
-//   dq.qtdMeses = atoi(sMes);
-//   dq.qtdAnos = atoi(sAno); 
-
-// 	dq.retorno = 1;
+int verificarDivisibilidade(int numero) {
+    int teste = 0;
+    int dezena = 10;
     
-//   return dq;
-// }
+    while(teste != 1){
+        if (numero / dezena == 0){
+            teste =1;
+            return dezena/10; 
+        } 
+        dezena *=10;
+    }
+}
