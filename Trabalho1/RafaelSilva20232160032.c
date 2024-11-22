@@ -314,6 +314,7 @@ int q6(int numerobase, int numerobusca)
 
 
 DataQuebrada quebraData(char data[]){
+  //quebrar as datas 
   DataQuebrada dq;
   char sDia[3];
 	char sMes[3];
