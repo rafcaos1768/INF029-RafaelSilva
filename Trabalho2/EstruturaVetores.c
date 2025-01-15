@@ -4,7 +4,7 @@
 
 #include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+int * vetorPrincipal[TAM]; // cada bloco aponta para uma estrutura 
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -30,12 +30,16 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
         return TAMANHO_INVALIDO; // o tamanho nao pode ser menor que 1
     }
     int *estrutura = (int *)malloc(tamanho * sizeof(int)); //Declara uma estrutura e multiplica o tamanho por bytes para guardar o espaço 
-    if (estrutura == NULL) { // se o retorno da estrutura for NULL 
+    if (estrutura == NULL) { // se o retorno da estrutura for NULL signifca que ele não conseguiu apontar para um espaço disponivel
         return SEM_ESPACO_DE_MEMORIA; // Sem memória disponível
     }
 
     // Associar a estrutura ao vetor principal
-    vetorPrincipal[posicao - 1] = estrutura;
+    vetorPrincipal[posicao - 1] = &estrutura;
+
+     for (int i = 0; i < tamanho; i++) {
+        vetorPrincipal[posicao][i] = -1 ;
+    } //inicilizar estrutura com -1 para manipular
     
     
     return = SUCESSO;
@@ -54,21 +58,24 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
-    int retorno = 0;
+    // int retorno = 0;
     int existeEstruturaAuxiliar = 0;
     int temEspaco = 0;
-    int posicao_invalida = 0;
+    // int posicao_invalida = 0;
 
-    if (posicao_invalida)
-        retorno = POSICAO_INVALIDA;
+    if (posicao-1 > 9 || posicao -1 < 0)
+        return = POSICAO_INVALIDA;
     else
     {
-        // testar se existe a estrutura auxiliar
+        if(vetorPrincipal[posicao-1] != NULL) existeEstruturaAuxiliar = 1; // verifica se a posicação selecionada está associada
+
         if (existeEstruturaAuxiliar)
         {
+            
+            vetorPrincipal
             if (temEspaco)
             {
-                //insere
+               for(int i =0; )
                 retorno = SUCESSO;
             }
             else
