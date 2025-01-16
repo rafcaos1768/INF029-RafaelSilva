@@ -6,6 +6,7 @@
 
 int * vetorPrincipal[TAM]; // cada bloco aponta para uma estrutura 
 
+
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
@@ -18,31 +19,35 @@ Rertono (int)
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
-{
+{   
     int retorno = 0;
-    if(vetorPrincipal[posicao -1]=! NULL){
-        return JA_TEM_ESTRUTURA_AUXILIAR; // a posicao pode já existir estrutura auxiliar
+    if(vetorPrincipal[posicao]=! NULL){
+        retorno = JA_TEM_ESTRUTURA_AUXILIAR; // a posicao pode já existir estrutura auxiliar
+        return retorno;
     }
-    if(posicao -1 > 9 || posicao-1 < 0 ){
-        return POSICAO_INVALIDA; // se posição é um valor válido {entre 1 e 10}
+    if(posicao  > 9 || posicao < 0 ){
+        retorno =  POSICAO_INVALIDA; // se posição é um valor válido {entre 1 e 10}
+        return retorno; 
     }
     if(tamanho < 1){
-        return TAMANHO_INVALIDO; // o tamanho nao pode ser menor que 1
+        retorno = TAMANHO_INVALIDO; // o tamanho nao pode ser menor que 1
+        return retorno; 
     }
     int *estrutura = (int *)malloc(tamanho * sizeof(int)); //Declara uma estrutura e multiplica o tamanho por bytes para guardar o espaço 
     if (estrutura == NULL) { // se o retorno da estrutura for NULL signifca que ele não conseguiu apontar para um espaço disponivel
-        return SEM_ESPACO_DE_MEMORIA; // Sem memória disponível
+        retorno = SEM_ESPACO_DE_MEMORIA; // Sem memória disponível
+        return retorno; 
     }
 
     // Associar a estrutura ao vetor principal
     vetorPrincipal[posicao - 1] = &estrutura;
 
      for (int i = 0; i < tamanho; i++) {
-        vetorPrincipal[posicao][i] = -1 ;
-    } //inicilizar estrutura com -1 para manipular
-    
-    
-    return = SUCESSO;
+        vetorPrincipal[posicao][i] = 9687485 ;
+    } //inicilizar estrutura com 9687485 para manipular
+
+    retorno = SUCESSO;   
+    return retorno;
 
     // return retorno;
 }
@@ -57,35 +62,51 @@ Rertono (int)
 CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
-{
-    // int retorno = 0;
+{   
+    int i=0, j=0;
+    int espacoLivre =-1; //identificar o local livre
+    int tamanho =0; 
+
+    int retorno = 0;
     int existeEstruturaAuxiliar = 0;
     int temEspaco = 0;
-    // int posicao_invalida = 0;
+    int posicao_invalida = 0;
+
+    while (vetorPrincipal[posicao-1][j] != NULL) {
+        tamanho++;
+    }
+
 
     if (posicao-1 > 9 || posicao -1 < 0)
-        return = POSICAO_INVALIDA;
+        return  POSICAO_INVALIDA;
     else
     {
         if(vetorPrincipal[posicao-1] != NULL) existeEstruturaAuxiliar = 1; // verifica se a posicação selecionada está associada
 
         if (existeEstruturaAuxiliar)
-        {
+        { 
+            for( i; i < tamanho; i++){
+                if(vetorPrincipal[posicao-1][i]==9687485){
+                    temEspaco =1;
+                    espacoLivre = i; 
+                    break;
+                }  
+               
+            }
             
-            vetorPrincipal
             if (temEspaco)
             {
-               for(int i =0; )
-                retorno = SUCESSO;
+                vetorPrincipal[posicao-1][i]= valor; 
+                return SUCESSO; 
             }
             else
             {
-                retorno = SEM_ESPACO;
+                return SEM_ESPACO;
             }
         }
         else
         {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
+            return SEM_ESTRUTURA_AUXILIAR;
         }
     }
 
@@ -105,8 +126,41 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
+    int j=0; 
+
     int retorno = SUCESSO;
-    return retorno;
+    int tamanho =0;
+    int naoEstaVazio=0;
+
+     while (vetorPrincipal[posicao-1][j] != NULL) {
+        tamanho++;
+    }
+
+    if (posicao-1 > 9 || posicao -1 < 0)
+    return  POSICAO_INVALIDA;
+
+    if(vetorPrincipal[posicao-1] == NULL) return SEM_ESTRUTURA_AUXILIAR;
+
+
+    if(vetorPrincipal[posicao-1][0]!=9687485){
+        naoEstaVazio = 1; //VERIFICA SE ESTA VAZIO 
+    }
+
+
+    if(naoEstaVazio){
+        for(int i = tamanho; i != -1; i++){ //Percorrer ao conttrário até a ultima casa 
+            if(vetorPrincipal[posicao-1][i]!=9687485){//quando encontrar o primeiro numero diferente de 9687485 excloi ele logicamente
+                vetorPrincipal[posicao-1][i] = 9687485; 
+                return SUCESSO;
+            }
+
+
+        }
+
+    } else {
+        return ESTRUTURA_AUXILIAR_VAZIA; 
+    }
+   
 }
 
 /*
