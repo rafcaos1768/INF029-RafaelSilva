@@ -28,6 +28,7 @@ No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
 
+
 void inicializar();
 void finalizar();
 void dobrar(int *x);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAM 10
 
 #include "EstruturaVetores.h"
@@ -21,11 +22,11 @@ Rertono (int)
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {   
     int retorno = 0;
-    if(vetorPrincipal[posicao]=! NULL){
+    if(vetorPrincipal[posicao -1] != NULL){
         retorno = JA_TEM_ESTRUTURA_AUXILIAR; // a posicao pode já existir estrutura auxiliar
         return retorno;
     }
-    if(posicao  > 9 || posicao < 0 ){
+    if(posicao < 1 || posicao > 10){
         retorno =  POSICAO_INVALIDA; // se posição é um valor válido {entre 1 e 10}
         return retorno; 
     }
@@ -40,17 +41,19 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     }
 
     // Associar a estrutura ao vetor principal
-    vetorPrincipal[posicao - 1] = &estrutura;
+    vetorPrincipal[posicao-1] = estrutura;// ja eh um ponteiro por isso nao passa o endereco
 
      for (int i = 0; i < tamanho; i++) {
-        vetorPrincipal[posicao][i] = 9687485 ;
+        vetorPrincipal[posicao-1][i] = 9687485 ;
     } //inicilizar estrutura com 9687485 para manipular
 
     retorno = SUCESSO;   
     return retorno;
 
-    // return retorno;
+    
 }
+
+
 
 /*
 Objetivo: inserir número 'valor' em estrutura auxiliar da posição 'posicao'
@@ -63,7 +66,7 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {   
-    int i=0, j=0;
+    int i=0;
     int espacoLivre =-1; //identificar o local livre
     int tamanho =0; 
 
@@ -72,46 +75,54 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     int temEspaco = 0;
     int posicao_invalida = 0;
 
-    while (vetorPrincipal[posicao-1][j] != NULL) {
-        tamanho++;
+    // while (vetorPrincipal[posicao-1][tamanho] != NULL) {
+    //     tamanho++;
+        
+    // }
+
+    if (posicao < 1 || posicao > 10){
+        return  POSICAO_INVALIDA;
     }
 
 
-    if (posicao-1 > 9 || posicao -1 < 0)
-        return  POSICAO_INVALIDA;
-    else
-    {
-        if(vetorPrincipal[posicao-1] != NULL) existeEstruturaAuxiliar = 1; // verifica se a posicação selecionada está associada
+    if(vetorPrincipal[posicao-1] != NULL) existeEstruturaAuxiliar = 1; // verifica se a posicação selecionada está associada
+    
 
-        if (existeEstruturaAuxiliar)
-        { 
-            for( i; i < tamanho; i++){
-                if(vetorPrincipal[posicao-1][i]==9687485){
-                    temEspaco =1;
-                    espacoLivre = i; 
-                    break;
-                }  
-               
+    if (existeEstruturaAuxiliar)
+    { 
+        for( i;; i++){
+            if(vetorPrincipal[posicao-1][i]==9687485){
+                temEspaco =1;
+                espacoLivre = i; 
+                break;
+            } else if(vetorPrincipal[posicao-1][i] == '\0'){ //utilizando essa metodologia que estranhamente da certo 
+                temEspaco = 0;
+                break;
             }
             
-            if (temEspaco)
-            {
-                vetorPrincipal[posicao-1][i]= valor; 
-                return SUCESSO; 
-            }
-            else
-            {
-                return SEM_ESPACO;
-            }
+        }
+        
+        if (temEspaco)
+        {
+            vetorPrincipal[posicao-1][espacoLivre]= valor; //prestar atencao pois nao tava adicionando no espaco livre
+            retorno = SUCESSO;
+            return retorno; 
         }
         else
         {
-            return SEM_ESTRUTURA_AUXILIAR;
+            return SEM_ESPACO;
         }
     }
+    else
+    {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
 
     return retorno;
 }
+
+
 
 /*
 Objetivo: excluir o numero 'valor' da estrutura auxiliar no final da estrutura.
@@ -124,22 +135,18 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int excluirNumeroDoFinaldaEstrutura(int posicao)
-{
-    int j=0; 
 
+int excluirNumeroDoFinaldaEstrutura(int posicao)
+{     
     int retorno = SUCESSO;
     int tamanho =0;
     int naoEstaVazio=0;
-
-     while (vetorPrincipal[posicao-1][j] != NULL) {
-        tamanho++;
-    }
-
-    if (posicao-1 > 9 || posicao -1 < 0)
+   
+    if (posicao < 1 || posicao > 10)
     return  POSICAO_INVALIDA;
 
     if(vetorPrincipal[posicao-1] == NULL) return SEM_ESTRUTURA_AUXILIAR;
+ 
 
 
     if(vetorPrincipal[posicao-1][0]!=9687485){
@@ -148,18 +155,18 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
 
 
     if(naoEstaVazio){
-        for(int i = tamanho; i != -1; i++){ //Percorrer ao conttrário até a ultima casa 
-            if(vetorPrincipal[posicao-1][i]!=9687485){//quando encontrar o primeiro numero diferente de 9687485 excloi ele logicamente
-                vetorPrincipal[posicao-1][i] = 9687485; 
-                return SUCESSO;
-            }
-
-
+        for(int i = 0;; i++)
+        if(vetorPrincipal[posicao-1][i] == 9687485 || vetorPrincipal[posicao-1][i] == '\0'){
+            vetorPrincipal[posicao-1][i-1] = 9687485;
+            retorno = SUCESSO;
+            return retorno;
         }
 
     } else {
         return ESTRUTURA_AUXILIAR_VAZIA; 
     }
+    
+    return POSICAO_INVALIDA; 
    
 }
 
