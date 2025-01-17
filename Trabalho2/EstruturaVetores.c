@@ -155,11 +155,12 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
 
 
     if(naoEstaVazio){
-        for(int i = 0;; i++)
-        if(vetorPrincipal[posicao-1][i] == 9687485 || vetorPrincipal[posicao-1][i] == '\0'){
-            vetorPrincipal[posicao-1][i-1] = 9687485;
-            retorno = SUCESSO;
-            return retorno;
+        for(int i = 0;; i++){ //percorre o vetor ate o final e excloi logicamente o ultimo numero 
+            if(vetorPrincipal[posicao-1][i] == 9687485 || vetorPrincipal[posicao-1][i] == '\0'){
+                vetorPrincipal[posicao-1][i-1] = 9687485;
+                retorno = SUCESSO;
+                return retorno;
+            }
         }
 
     } else {
@@ -185,7 +186,45 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
+    int tamanho =0 ; 
     int retorno = SUCESSO;
+    int numeroExiste = 0 ; 
+    int encontrei = -1; 
+
+    if (posicao < 1 || posicao > 10)
+    return  POSICAO_INVALIDA;
+
+    if(vetorPrincipal[posicao-1] == NULL ) return SEM_ESTRUTURA_AUXILIAR; 
+
+    if(vetorPrincipal[posicao-1][0] == 9687485) return ESTRUTURA_AUXILIAR_VAZIA;
+
+    for(int j = 0; ; j++) { // encontrar o tamanho do vetor 
+        if(vetorPrincipal[posicao-1][j] == 9687485 || vetorPrincipal[posicao-1][j] == '\0'){
+            break;
+        } else {
+            tamanho ++; 
+        }
+    }
+
+    for(int i = 0 ; i < tamanho; i++){//Encontrar o valor na estrutura  
+        if(vetorPrincipal[posicao-1][i]== valor){
+            numeroExiste = 1; 
+            encontrei = i; //recebe aonde encontrou o valor
+        } 
+    }
+
+    if(numeroExiste){
+
+        for (int k = encontrei; vetorPrincipal[posicao-1][k] != 9687485; k++) {
+            vetorPrincipal[posicao-1][k] = vetorPrincipal[posicao-1][k + 1];
+        }   
+
+    } else {
+        return NUMERO_INEXISTENTE; 
+    }
+   
+    
+
     return retorno;
 }
 
@@ -213,8 +252,25 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    int tamanho = 0; 
+    int retorno = SUCESSO;
 
-    int retorno = 0;
+    if (posicao < 1 || posicao > 10)
+    return  POSICAO_INVALIDA;
+
+    if(vetorPrincipal[posicao -1] == NULL) return SEM_ESTRUTURA_AUXILIAR; 
+
+    for(int j = 0; ; j++) { // encontrar o tamanho do vetor 
+        if(vetorPrincipal[posicao-1][j] == 9687485 || vetorPrincipal[posicao-1][j] == '\0'){
+            break;
+        } else {
+            tamanho ++; 
+        }
+    }
+
+    for(int i = 0 ; i < tamanho ; i ++){
+        vetorAux[i] = vetorPrincipal[posicao -1][i]; 
+    }
 
     return retorno;
 }
