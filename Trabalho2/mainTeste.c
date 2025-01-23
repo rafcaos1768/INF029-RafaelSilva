@@ -18,18 +18,18 @@ void testeListaEncadeada();
 int main()
 {
     // inicializar();
-    // testeInserirSemNada();
+    testeInserirSemNada();
     testeCriarEstrutura(); 
     testeInserirComEstrutura();
     testeExcluir();
     testeExcluirNumeroEspecifico();
-    // testeListar();
-    // testeRetornarTodosNumeros();
+    testeListar();
+    testeRetornarTodosNumeros();
     // testeMudarTamanhoEstrutura();
     // testeListaEncadeada();
     // finalizar();
 }
-int ligado = 0;
+int ligado = 1;
 void show_log(char *str)
 {
     if (ligado)
@@ -168,9 +168,8 @@ void testeRetornarTodosNumeros()
 5 [1,34,12,6,27,-6, , , , ]
 */
     int vet[9];
-
+    
     printf("%d\n", getDadosDeTodasEstruturasAuxiliares(vet) == SUCESSO);
-
     printf("%d\n", vet[0] == 3);
     printf("%d\n", vet[1] == 8);
     printf("%d\n", vet[2] == 0);
@@ -182,7 +181,7 @@ void testeRetornarTodosNumeros()
     printf("%d\n", vet[8] == -6);
 
     int vet2[9];
-
+    
     printf("%d\n", getDadosOrdenadosDeTodasEstruturasAuxiliares(vet2) == SUCESSO);
 
     printf("%d\n", vet2[0] == -6);

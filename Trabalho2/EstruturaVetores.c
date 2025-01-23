@@ -269,7 +269,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
     }
 
     for(int i = 0 ; i < tamanho ; i ++){
-        vetorAux[i] = vetorPrincipal[posicao -1][i]; 
+        vetorAux[i] = vetorPrincipal[posicao -1][i]; //passando os dados
     }
 
     return retorno;
@@ -286,8 +286,39 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    int tamanho =0; 
+    int retorno = SUCESSO;
 
-    int retorno = 0;
+    if (posicao < 1 || posicao > 10){
+     return  POSICAO_INVALIDA;
+    }
+
+    if(vetorPrincipal[posicao -1] == NULL) return SEM_ESTRUTURA_AUXILIAR; 
+
+     for(int j = 0; ; j++) { // encontrar o tamanho do vetor 
+        if(vetorPrincipal[posicao-1][j] == 9687485 || vetorPrincipal[posicao-1][j] == '\0'){
+            break;
+        } else {
+            tamanho ++; 
+        }
+    }
+
+    for(int i = 0 ; i < tamanho ; i ++){
+        vetorAux[i] = vetorPrincipal[posicao -1][i]; //passando os dados 
+    }
+
+        // Ordenar o vetorAux usando Bubble Sort
+    for (int i = 0; i < tamanho - 1; i++) {  // Percorrer o vetor várias vezes
+        for (int j = 0; j < tamanho - i - 1; j++) {  // Comparar pares de elementos adjacentes
+            if (vetorAux[j] > vetorAux[j + 1]) {  // Se estiverem fora de ordem
+                // Trocar os elementos
+                int temp = vetorAux[j];
+                vetorAux[j] = vetorAux[j + 1];
+                vetorAux[j + 1] = temp;
+            }
+        }
+    }
+
 
     
     return retorno;
@@ -304,7 +335,39 @@ Rertono (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int cont = 0; // variavel para contar estruturas vazias 
+    int o =0; // Variavel para acompanhar o VetorAux
+    int posicao ; // variavel para acompanhar a posicao do vetor
+
+    for(posicao =0 ; posicao < 9 ; posicao++){
+        int tamanho = 0; // contar o tamanho de cada estrutura
+
+        if (vetorPrincipal[posicao] != NULL && vetorPrincipal[posicao][0] != 9687485 ){
+
+            for(int j = 0; ; j++) { // encontrar o tamanho do vetor 
+                if(vetorPrincipal[posicao][j] == 9687485 ){ 
+                break;
+                } else {
+                    tamanho ++; 
+                }
+            }
+
+            for( int r = 0; r < tamanho ; r++){
+                vetorAux[o] = vetorPrincipal[posicao][r]; // Utilizar variavel r para percorrer a estrutura
+                o++;
+            }
+                        
+        } else {
+            cont++;
+        }
+
+    }
+
+    if (cont == 9){
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS; 
+    }
+
     return retorno;
 }
 
@@ -319,7 +382,68 @@ Rertono (int)
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int cont = 0; // variavel para contar estruturas vazias 
+    int o =0; // Variavel para acompanhar o VetorAux
+    int posicao; // variavel para acompanhar a posicao do vetor
+     
+
+    
+
+    for(posicao =0 ; posicao < 9 ; posicao++){
+        int tamanho = 0; // contar o tamanho de cada estrutura
+        
+        if (vetorPrincipal[posicao] != NULL && vetorPrincipal[posicao][0] != 9687485  ){
+
+            for(int j = 0; ; j++) { // encontrar o tamanho do vetor 
+                if(vetorPrincipal[posicao][j] == 9687485 || vetorPrincipal[posicao][j] == '\0'){
+                break;
+                } else {
+                    tamanho ++; 
+                }
+            }
+
+            // for (int i = 0; i < tamanho - 1; i++) { // Loop externo para número de passagens
+            //     for (int j = 0; j < tamanho - i - 1; j++) { // Loop interno para comparar e trocar
+            //         if (vetorPrincipal[posicao][j] > vetorPrincipal[posicao][j + 1]) { // Se o elemento atual for maior que o próximo
+            //             // Troca os elementos
+            //             int temp = vetorPrincipal[posicao][j];
+            //             vetorPrincipal[posicao][j] = vetorPrincipal[posicao][j + 1];
+            //             vetorPrincipal[posicao][j + 1] = temp;
+            //         }
+            //     }
+            // }
+
+
+            for( int r = 0; r < tamanho ; r++){
+                vetorAux[o] = vetorPrincipal[posicao][r]; // Utilizar variavel r para percorrer a estrutura
+                o++;
+            }
+            
+
+            
+        } else {
+            cont++;
+        }
+
+    }
+
+    if (cont == 9){
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS; 
+    }
+
+    // Ordenação simples com Bubble Sort
+    for (int i = 0; i < o - 1; i++) { // Loop externo para número de passagens
+        for (int j = 0; j < o - i - 1; j++) { // Loop interno para comparar e trocar
+            if (vetorAux[j] > vetorAux[j + 1]) { // Se o elemento atual for maior que o próximo
+                // Troca os elementos
+                int temp = vetorAux[j];
+                vetorAux[j] = vetorAux[j + 1];
+             vetorAux[j + 1] = temp;
+            }
+        }
+    }
+
     return retorno;
 }
 
@@ -397,6 +521,7 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 void inicializar()
 {
+    for(int i =0; i<10; i++) vetorPrincipal[i] = NULL;
 }
 
 /*
@@ -407,4 +532,5 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+    for(int i =0; i<10; i++) free(vetorPrincipal[i]);
 }
