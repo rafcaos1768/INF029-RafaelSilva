@@ -24,7 +24,7 @@ void introduction(){
 int menuStudent(){
     int choice; 
     printf("=== Informe a operação desejada==\n");
-    printf("1-Cadastrar\n");
+    printf("1-Cadastrar\n2-Atualizar\n3-Excluir\n4-voltar");
     scanf("%d", &choice);
 
     return choice; 
@@ -49,7 +49,12 @@ bool CadastrarAluno(student baseOfStudents[], int qtd){
     return true; 
 }
 
+bool exlcuirAluno(student baseOfStudents[]){
 
+
+}
+
+//buscar aluno 
 // void menuTeacher();
 // void menuSubject();
 // void menuReports();
@@ -78,7 +83,12 @@ void main(){
                 }else{
                     printf("ERRO");
                 }
-            }
+              } else if (choice ==  2 ){
+
+              }else if(choice==3){
+
+
+              }
 
         }else if (choice == 2){
             // menuTeacher();
