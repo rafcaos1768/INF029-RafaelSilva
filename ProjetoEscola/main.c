@@ -40,6 +40,8 @@ void main(){
                     printf("\nAluno cadastrado com sucesso\n");
                     printf("Aluno:%s cadastrado\n\n", baseOfStudents[CountStudents].name);
                     CountStudents++;
+                }else if(studentOperation == false){
+                    printf("Estudante não cadastrado\nColoque um dado válido\n");
                 }else{
                     printf("ERRO");
                 }
