@@ -28,14 +28,16 @@ bool CadastrarAluno(student baseOfStudents[], int qtd){
         
 
         printf("digite o genero do aluno\n");
-        scanf("%c", &baseOfStudents[qtd].gender);
+        scanf(" %c", &baseOfStudents[qtd].gender); //Usar scanf é problematico, ent dê um espaço antes do %c para eliminar o \n
         if(!validateGender(baseOfStudents[qtd].gender))   
         return false;
         getchar();
 
-        printf("digite a idade do aluno\n");
-        scanf("%d", &baseOfStudents[qtd].age);
-        getchar();
+        printf("digite a data de nascimento do aluno\n");
+        fgets(baseOfStudents[qtd].birthdate, sizeof(baseOfStudents[qtd].birthdate), stdin);
+        baseOfStudents[qtd].birthdate[strcspn(baseOfStudents[qtd].birthdate, "\n")] = '\0'; // tira o Enter
+        if(!validateBirthday(baseOfStudents[qtd].birthdate))   
+        return false;
 
         printf("digite o CPF do aluno\n");
         scanf("%s", baseOfStudents[qtd].id);
