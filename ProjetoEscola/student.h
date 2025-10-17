@@ -12,7 +12,9 @@ typedef struct student {
 
 int menuStudent();
 bool CadastrarAluno(student baseOfStudents[], int qtd); //FEITO FALTA VALIDADORES
-bool exlcuirAluno(student baseOfStudents[]);//FAZER
-bool buscarAluno(student baseOfStudents[], int qtd);//FAZER
+bool atualizarAluno(student baseOfStudents[], int qtd);
+bool exlcuirAluno(student baseOfStudents[], int * qtd);//FAZER
+int KdAluno(student baseOfStudents[], int qtd, int registration);
+// student buscarAluno(student baseOfStudents[], int * qtd);//FAZER
 
 #endif

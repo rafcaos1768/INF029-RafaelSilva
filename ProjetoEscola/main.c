@@ -4,6 +4,7 @@
 #include <string.h>
 #include "student.h"
 #include "report.h"
+#include "teacher.h"
 
 
 #define MAX 100 
@@ -22,7 +23,8 @@ void main(){
     introduction();
 
     student baseOfStudents[MAX]; // Variavel para armazena-los
-    int CountStudents = 0; // quantidade de estudantes 
+    int CountStudents = 0;
+    int countTeachers = 0; 
     int choice = -1;
 
     while(1){
@@ -45,12 +47,19 @@ void main(){
                 }else{
                     printf("ERRO");
                 }
-              } else if (choice ==  2 ){
 
-              }else if(choice==3){
+            }else if (choiceStudent==2 ){
+                bool result2 = atualizarAluno(baseOfStudents, CountStudents); 
+                if(!result2)
+                printf("erro\n");
 
+            }else if(choiceStudent==3){
+                bool result3 = exlcuirAluno(baseOfStudents,&CountStudents);
+               if(!result3)
+                printf("erro\n"); 
+                
 
-              }
+            }
 
         }else if (choice == 2){
             // menuTeacher();
