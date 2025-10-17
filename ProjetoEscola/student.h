@@ -4,7 +4,6 @@
 typedef struct student {
   char name[100];
   char gender;
-  int age; 
   char id[100];
   char birthdate[100];
   int registration;

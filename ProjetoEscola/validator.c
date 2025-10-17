@@ -22,7 +22,7 @@ bool validateBirthday(char birthOrigin[]){
     int dd, mm, aa; 
 
     if(strlen(birth) != 10){
-        printf("Padrão invalido. Siga o padrão da data de nascimento1\n");
+        printf("Padrão invalido. Siga o padrão da data de nascimento\n");
         return false;
     }else{    
         while(index < 10){
@@ -47,3 +47,5 @@ bool validateBirthday(char birthOrigin[]){
     return false; // caso raro 
 
 }
+
+c

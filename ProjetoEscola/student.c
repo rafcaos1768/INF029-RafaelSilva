@@ -33,19 +33,18 @@ bool CadastrarAluno(student baseOfStudents[], int qtd){
         return false;
         getchar();
 
-        printf("digite a data de nascimento do aluno\n");
+        printf("digite a data de nascimento do aluno (ex: dd/mm/aaaa\n");
         fgets(baseOfStudents[qtd].birthdate, sizeof(baseOfStudents[qtd].birthdate), stdin);
         baseOfStudents[qtd].birthdate[strcspn(baseOfStudents[qtd].birthdate, "\n")] = '\0'; // tira o Enter
         if(!validateBirthday(baseOfStudents[qtd].birthdate))   
         return false;
 
         printf("digite o CPF do aluno\n");
-        scanf("%s", baseOfStudents[qtd].id);
-        getchar();
-
-        printf("digite o aniversario do aluno\n");
-        scanf("%s", baseOfStudents[qtd].birthdate);
-        getchar();
+        fgets(baseOfStudents[qtd].id, sizeof(baseOfStudents[qtd].id), stdin);
+        baseOfStudents[qtd].id[strcspn(baseOfStudents[qtd].id, "\n")] = '\0';
+        if(!validateCPF(baseOfStudents[qtd].id)){
+            return false;
+        }
 
         printf("digite a matricula do aluno\n");
         scanf("%d", &baseOfStudents[qtd].registration);
