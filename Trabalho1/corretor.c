@@ -17,8 +17,8 @@
 #include <stdio.h>
 #include <string.h>
 
-//renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.h
-#include "RafaelSilva20232160032.h"
+//renomeie o arquivo do include abaixo para trabalho1.h
+#include "trabalho1.h"
 
 void testSomar();    //função utilizada para testes
 void testFatorial(); //função utilizada para testes
@@ -28,17 +28,19 @@ void testQ3();
 void testQ4();
 void testQ5();
 void testQ6();
+void testQ7();
 
 int main()
 {
     //testSomar();
     //testFatorial();
-    //testQ1();
-    // testQ2();
-    // testQ3();
-    // testQ4();
-    // testQ5();
-    // testQ6();
+    testQ1();
+    testQ2();
+    testQ3();
+    testQ4();
+    testQ5();
+    testQ6();
+    testQ7();
 }
 
 void testSomar()
@@ -186,4 +188,27 @@ void testQ6()
     printf("%d\n", q6(34567368, 4576) == 0);
     printf("%d\n", q6(3539343, 3) == 4);
     printf("%d\n", q6(3539343, 39) == 1);
+}
+
+void testQ7()
+{
+    char matrix[8][10] = {
+        { 'Q', 'M', 'J', 'D', 'L', 'A', 'Z', 'F', 'C', 'R' },
+        { 'N', 'B', 'Y', 'G', 'P', 'S', 'K', 'H', 'E', 'X' },
+        { 'V', 'O', 'W', 'U', 'T', 'I', 'Z', 'A', 'L', 'C' },
+        { 'M', 'Q', 'B', 'D', 'N', 'F', 'R', 'J', 'G', 'E' },
+        { 'H', 'S', 'K', 'T', 'U', 'X', 'W', 'O', 'P', 'Y' },
+        { 'C', 'Z', 'A', 'I', 'L', 'M', 'V', 'G', 'N', 'B' },
+        { 'D', 'F', 'E', 'H', 'S', 'K', 'J', 'Q', 'R', 'T' },
+        { 'U', 'X', 'Y', 'W', 'V', 'O', 'P', 'N', 'M', 'L' }
+    };
+    char stringBusca [6] = { 'F', 'E', 'H', 'S', 'K'};
+    printf("%d\n", q7(matrix, stringBusca) == 1);
+    strcpy(stringBusca, "KJQRT");
+    printf("%d\n", q7(matrix, stringBusca) == 1);
+    strcpy(stringBusca, "AATOK");
+    printf("%d\n", q7(matrix, stringBusca) == 0);
+    strcpy(stringBusca, "LTBON");
+    printf("%d\n", q7(matrix, stringBusca) == 1);
+
 }

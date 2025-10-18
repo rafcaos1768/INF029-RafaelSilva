@@ -7,28 +7,24 @@
 
 //  ----- Orientações gerais -----
 //  Descrição: esse arquivo deve conter as questões do trabalho do aluno.
-//  Cada aluno deve renomear esse arquivo para Aluno<MATRICULA>.c
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome:Rafael Pimentel Dunda Silva
+//  email:rafaeldunda12@hotmail.com
+//  Matrícula:20232160032
+//  Semestre:2
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
-// Última atualização: 07/05/2021 - 19/08/2016
+// Última atualização: 07/05/2021 - 19/08/2016 - 17/10/2025
 
 // #################################################
-#include <stdlib.h>
-#include <string.h>
+
 #include <stdio.h>
-#include "RafaelSilva20232160032.h" // Substitua pelo seu arquivo de header renomeado
-#define MAX 100 //definindo minha constante 
+#include "trabalho1.h" 
+#include <stdlib.h>
 
 DataQuebrada quebraData(char data[]);
-int validarLogica(int dia, int mes, int ano);
-int verificarDivisibilidade(int numero);
 
 /*
 ## função utilizada para testes  ##
@@ -96,22 +92,16 @@ int teste(int a)
 int q1(char data[])
 {
   int datavalida = 1;
-  DataQuebrada Mhdata;
-  //int tamanhoDaData = strlen(data) -1; //pegar o tamanho sem o /0
-  
-  Mhdata = quebraData(data); //quebrar a data e armazear em 
-  
-  if(Mhdata.valido == 0){
-    return 0; //Barrar as datas com erros de sintese 
-  } else {
-    int verficarLogica = validarLogica(Mhdata.iDia, Mhdata.iMes, Mhdata.iAno);
-    if (verficarLogica == 0){
-      return 0;
-    }
-  }
 
- 
-    return 1;
+  //quebrar a string data em strings sDia, sMes, sAno
+
+
+  //printf("%s\n", data);
+
+  if (datavalida)
+      return 1;
+  else
+      return 0;
 }
 
 
@@ -133,53 +123,27 @@ int q1(char data[])
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
 
-  //calcule os dados e armazene nas três variáveis a seguir
-  DiasMesesAnos dma;
-  DataQuebrada datafinalq2; 
-  DataQuebrada datainicialq2; 
+    //calcule os dados e armazene nas três variáveis a seguir
+    DiasMesesAnos dma;
 
-  if (q1(datainicial) == 0){ //utiliza a q1 para ver se eh valida
-    dma.retorno = 2;
-    return dma;
-  }else if (q1(datafinal) == 0){
-    dma.retorno = 3;
-    return dma;
-  }else{
-    //verifique se a data final não é menor que a data inicial
-    datainicialq2 = quebraData(datainicial);
-    datafinalq2 = quebraData (datafinal); 
+    if (q1(datainicial) == 0){
+      dma.retorno = 2;
+      return dma;
+    }else if (q1(datafinal) == 0){
+      dma.retorno = 3;
+      return dma;
+    }else{
+      //verifique se a data final não é menor que a data inicial
       
-    if (datainicialq2.iAno > datafinalq2.iAno) { 
-      // Verifica se o ano da data inicial é maior que o ano da data final
-      dma.retorno = 4;
-     return dma; 
-    } else if (datainicialq2.iAno == datafinalq2.iAno) { 
-        // Se os anos são iguais, verifica o mês
-        if (datainicialq2.iMes > datafinalq2.iMes) {
-          dma.retorno = 4;
-          return dma; 
-        } else if (datainicialq2.iMes == datafinalq2.iMes) { 
-            // Se os meses também são iguais, verifica o dia
-            if (datainicialq2.iDia > datafinalq2.iDia) {
-              dma.retorno = 4;
-              return dma; 
-            }
-          }
-      }
-
-    // Continua a execução caso nenhuma condição de erro seja atendida
-    //calcule a distancia entre as datas
-    dma.qtdDias = datafinalq2.iDia - datainicialq2.iDia;
-    dma.qtdMeses = datafinalq2.iMes - datainicialq2.iMes;
-    dma.qtdAnos = datafinalq2.iAno - datainicialq2.iAno;
+      //calcule a distancia entre as datas
 
 
-    //se tudo der certo
-    dma.retorno = 1;
-    return dma;
+      //se tudo der certo
+      dma.retorno = 1;
+      return dma;
+      
+    }
     
-  }
-  
 }
 
 /*
@@ -194,25 +158,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = 0;
-    int tamanhoDoTexto = strlen(texto) -1;
-
-    if(isCaseSensitive == 1){ //deve considerar a diferença entre maiuscula ou minuscula
-      for (int i=0; i < tamanhoDoTexto; i++){
-        if(c == texto[i]){
-          qtdOcorrencias ++; 
-        }
-      }
-
-    } else { // eh caseSensitive 
-        for (int i=0; i < tamanhoDoTexto; i++){
-          if(c == texto[i] || (c >= 'A' && c <= 'Z' && c + 32 == texto[i]) || (c >= 'a' && c <= 'z' && c - 32 == texto[i])){
-          qtdOcorrencias ++;  
-          }
-        }
-      }
-
-
+    int qtdOcorrencias = -1;
 
     return qtdOcorrencias;
 }
@@ -234,22 +180,7 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = 0;
-
-    int textoLen = strlen(strTexto);
-    int buscaLen = strlen(strBusca);
-    
-    // Percorre o texto buscando ocorrências de strBusca
-    for (int i = 0; i <= textoLen - buscaLen; i++) {
-        // Verifica se a substring a partir de 'i' corresponde a strBusca
-        if (strncmp(&strTexto[i], strBusca, buscaLen) == 0) {
-            // Armazena a posição de início e fim da ocorrência
-            posicoes[qtdOcorrencias * 2] = i + 1;  // Índice começa de 1
-            posicoes[qtdOcorrencias * 2 + 1] = i + buscaLen;  // Índice final
-
-            qtdOcorrencias++;  // Incrementa a contagem de ocorrências
-        }
-    }
+    int qtdOcorrencias = -1;
 
     return qtdOcorrencias;
 }
@@ -266,16 +197,8 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
-  int cont=0; 
-  int invertido = 0;
 
-  while (num != 0) {
-      invertido = invertido * 10 + (num % 10);
-      num /= 10;
-  }
-
-  num =invertido;
-  return num;
+    return num;
 }
 
 /*
@@ -290,42 +213,40 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-
-    int qtdOcorrencias =0;
-    int digitos = verificarDivisibilidade(numerobase);
-    int divisor = 1;
-    
-      while (numerobusca / divisor >= 1) {
-        divisor *= 10;
-    }
-
-    // Percorre numerobase e verifica ocorrências de numerobusca
-    while (numerobase >= numerobusca) {
-        if (numerobase % divisor == numerobusca) {
-            qtdOcorrencias++;
-        }
-        numerobase /= 10;
-    }
-
+    int qtdOcorrencias;
     return qtdOcorrencias;
 }
 
+/*
+ Q7 = jogo busca palavras
+ @objetivo
+    Verificar se existe uma string em uma matriz de caracteres em todas as direções e sentidos possíves
+ @entrada
+    Uma matriz de caracteres e uma string de busca (palavra).
+ @saida
+    1 se achou 0 se não achou
+ */
+
+ int q7(char matriz[8][10], char palavra[5])
+ {
+     int achou;
+     return achou;
+ }
 
 
 
 DataQuebrada quebraData(char data[]){
-  //quebrar as datas 
   DataQuebrada dq;
   char sDia[3];
 	char sMes[3];
 	char sAno[5];
 	int i; 
 
-	for (i = 0; data[i] != '/'; i++){ //atribui ate achar o 
+	for (i = 0; data[i] != '/'; i++){
 		sDia[i] = data[i];	
 	}
 	if(i == 1 || i == 2){ // testa se tem 1 ou dois digitos
-		sDia[i] = '\0';  // coloca o barra zero no final 
+		sDia[i] = '\0';  // coloca o barra zero no final
 	}else {
 		dq.valido = 0;
     return dq;
@@ -372,40 +293,3 @@ DataQuebrada quebraData(char data[]){
   return dq;
 }
 
-int validarLogica(int dia, int mes, int ano){
-    
-  
-   // Verificar datas irreais
-    if (ano > 2024 || ano < 1900 || mes < 1 || mes > 12 || dia < 1 || dia > 31) {
-        return 0;
-    }
-    
-    // Verificar o mês de fevereiro considerando ano bissexto e não bissexto
-    if (mes == 2) {
-        int bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
-        if ((bissexto && dia > 29) || (!bissexto && dia > 28)) {
-            return 0;
-        }
-    }
-
-    // Verificar meses com 30 dias (abril, junho, setembro e novembro)
-    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) {
-        return 0;
-    }
-
-    // Se todas as condições forem satisfeitas, a data é válida
-    return 1;
-}
-
-int verificarDivisibilidade(int numero) {
-    int teste = 0;
-    int dezena = 10;
-    
-    while(teste != 1){
-        if (numero / dezena == 0){
-            teste =1;
-            return dezena/10; 
-        } 
-        dezena *=10;
-    }
-}
