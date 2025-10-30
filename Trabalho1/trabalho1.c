@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include "trabalho1.h" 
 #include <stdlib.h>
+#include <string.h>
 
 DataQuebrada quebraData(char data[]);
 
@@ -89,14 +90,57 @@ int teste(int a)
     Não utilizar funções próprias de string (ex: strtok)   
     pode utilizar strlen para pegar o tamanho da string
  */
+
 int q1(char data[])
 {
   int datavalida = 1;
+  char ddstring[10], mmstring[10], aaaastring[10]; 
+  int dd,mm,aaaa; 
+  int tamdata = strlen(data); int counter = 0; 
 
-  //quebrar a string data em strings sDia, sMes, sAno
+  if(tamdata < 6 || tamdata > 10){
+      
+    return 0; 
+  }   // verifica o tamanho pensando no maior e menor caso 
+
+ //Transferindo os caracteres para as strings
+  int found= 0; int i=0,k=0,j=0; 
+  while(counter < tamdata ){
+      
+    if(data[counter] != '/'){ // verifica se é barra 
+      if(found == 0){
+        ddstring[i] = data[counter];
+        i++;
+      } else if(found == 1){
+        mmstring[k] = data[counter];
+        k++;
+      } else if(found == 2){
+        aaaastring[j] = data[counter]; 
+        j++; 
+      }
+    }else {
+      found++; 
+    }
+    
+    counter ++; 
+
+  } 
+    //Adicionando no final para terminar a string 
+    ddstring[i] = '\0';
+    mmstring[k] = '\0';
+    aaaastring[j] = '\0';
+
+    //Transformando as strings em numero 
+    dd = atoi(ddstring);
+    mm = atoi(mmstring); 
+    aaaa = atoi(aaaastring); 
+
+   //Aplicando lógica das datas 
+  if( (dd < 1  || (mm
 
 
-  //printf("%s\n", data);
+
+
 
   if (datavalida)
       return 1;
