@@ -24,6 +24,7 @@
 #include "trabalho1.h" 
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h> 
 
 DataQuebrada quebraData(char data[]);
 
@@ -125,18 +126,35 @@ int q1(char data[])
     counter ++; 
 
   } 
-    //Adicionando no final para terminar a string 
-    ddstring[i] = '\0';
-    mmstring[k] = '\0';
-    aaaastring[j] = '\0';
+  //Adicionando no final para terminar a string 
+  ddstring[i] = '\0';
+  mmstring[k] = '\0';
+  aaaastring[j] = '\0';
 
-    //Transformando as strings em numero 
-    dd = atoi(ddstring);
-    mm = atoi(mmstring); 
-    aaaa = atoi(aaaastring); 
+  //Transformando as strings em numero 
+  dd = atoi(ddstring);
+  mm = atoi(mmstring); 
+  aaaa = atoi(aaaastring); 
 
-   //Aplicando lógica das datas 
-  if( (dd < 1  || (mm
+  //Aplicando lógica das datas 
+  // Verificando se eh ano bisexto 
+  bool ehbisexto = false; 
+  
+  if(aaaa%4 == 0){
+      
+    if(aaaa%100 != 0 ){
+        ehbisexto = true;
+        
+    } else {
+        if((aaaa%400) == 0){
+            ehbisexto = true;
+        }
+    }
+  }
+
+  
+   
+  
 
 
 
