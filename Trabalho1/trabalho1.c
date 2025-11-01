@@ -94,7 +94,7 @@ int teste(int a)
 
 int q1(char data[])
 {
-  int datavalida = 1;
+  int datavalida = 1;//considerando como verdadeiro 
   char ddstring[10], mmstring[10], aaaastring[10]; 
   int dd,mm,aaaa; 
   int tamdata = strlen(data); int counter = 0; 
@@ -137,7 +137,14 @@ int q1(char data[])
   aaaa = atoi(aaaastring); 
 
   //Aplicando lógica das datas 
-  // Verificando se eh ano bisexto 
+  
+  //verificando se os numeros são validos 
+
+  if(dd > 31 || dd < 1 || mm > 12 || mm < 1  || aaaa < 1 || aaaa > 2500 ){
+    datavalida = 0; 
+  }else
+  {
+    // Verificando se eh ano bisexto 
   bool ehbisexto = false; 
   
   if(aaaa%4 == 0){
@@ -152,12 +159,13 @@ int q1(char data[])
     }
   }
 
-  
-   
-  
-
-
-
+  //Fora isso eh um dia normal 
+  if(!ehbisexto){
+    if(dd > 28 ){
+      datavalida = 0; 
+    }
+  }
+  }
 
 
   if (datavalida)
@@ -259,8 +267,26 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+  int index=0; int tamanho; int indexTamanho; 
+  char buffer[20];char inverso[20];  
+ 
+ //transformar o numero em string para contar as casas
+  sprintf(buffer, "%d", num);
+  tamanho = strlen(buffer); 
+  indexTamanho = tamanho; 
+  //passar a string para a outra string 
 
-    return num;
+  while(index != tamanho){
+    inverso[index] = buffer[indexTamanho-1];
+
+    indexTamanho --;
+    index++; 
+  }
+
+  inverso[tamanho] = '\0'; 
+  num = atoi(inverso); 
+
+  return num;
 }
 
 /*
