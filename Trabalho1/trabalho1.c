@@ -308,9 +308,46 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+  int qtdOcorrencias = 0; int i = 0; 
+  char * textocopy = malloc(strlen(strTexto)+1); 
+  strcpy(textocopy, strTexto); 
+  int tamamnhoBusca = strlen(strBusca); //chave para indicar que eh a palavra
+  int indexposicao = 0; int acheium = 0; 
 
-    return qtdOcorrencias;
+  while(textocopy[i] != '\0'){
+
+    if(textocopy[i] == -61){
+      acheium ++; //caso encontre palavras acentuadas 
+    }
+
+    if(textocopy[i] == strBusca[0]){
+      char * copybusca = malloc(strlen(strBusca) + 1); //criar uma variavel para fazer uma comparacao temporaria 
+      strcpy(copybusca, strBusca);
+      int chave =1;
+      for(; chave < tamamnhoBusca; chave++ ){
+      if(textocopy[i+chave] != copybusca[chave]){
+        break; 
+      }
+      }
+      chave --; // diminuir em um por causa do for 
+     if(chave == tamamnhoBusca -1){ // se for igual, siginifica que achamos a palavra. último índice válido da palavra é tamanho - 1
+     posicoes[indexposicao] = i+1 - acheium;               // salva início //professor optou por salvar a posicao com o numero real 
+     indexposicao ++; 
+     posicoes[indexposicao] = i + chave+1 - acheium;       // salva fim
+     indexposicao++; 
+     qtdOcorrencias++;
+      }
+
+
+      free(copybusca);
+    }
+
+    
+    i++;
+  }
+
+ 
+  return qtdOcorrencias;
 }
 
 /*
@@ -338,7 +375,7 @@ int q5(int num)
   }
 
   if(num < 0){
-      invetido *= - invertido; // devolve o sinal
+      invertido *= - invertido; // devolve o sinal
   }
 
   num = invertido; 
@@ -357,7 +394,35 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+  int qtdOcorrencias = 0;
+  int n = numerobase; int multiplicador = 1; 
+  int vetor[100]; int i = 0; 
+
+
+    // descobre quantos dígitos o número tem
+    while (multiplicador <= n){
+        multiplicador *= 10;
+    }
+    
+    multiplicador /= 10;//retirar um digito para comecar do comeco 
+    
+    // colocar todos os digitos em um vetor e fazer comparação 
+    
+    if(numerobusca < 10){
+        while(multiplicador > 0){
+            vetor[i] = n/multiplicador;
+            if(vetor[i] == numerobusca){
+                qtdOcorrencias ++; 
+            }
+            n = n - (vetor[i] * multiplicador);
+            multiplicador/= 10;
+            i++; // caminhar vetor 
+        }
+        
+    }else{
+        // ainda não tenho ideia de como fazer com mais de um digito 
+    }
+    
     return qtdOcorrencias;
 }
 
