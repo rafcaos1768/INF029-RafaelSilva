@@ -192,27 +192,65 @@ int q1(char data[])
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
+  
+  DataQuebrada inicial = quebraData(datainicial); 
+  DataQuebrada final = quebraData(datafinal); 
 
-    //calcule os dados e armazene nas três variáveis a seguir
-    DiasMesesAnos dma;
+  //calcule os dados e armazene nas três variáveis a seguir
+  DiasMesesAnos dma;
 
-    if (q1(datainicial) == 0){
-      dma.retorno = 2;
+
+  // verifica se eh valido ou não 
+  if (q1(datainicial) == 0){
+    dma.retorno = 2;
+    return dma;
+  }else if (q1(datafinal) == 0){
+    dma.retorno = 3;
+    return dma;
+  }else{
+    //verifique se a data final não é menor que a data inicial
+    if(final.iAno < inicial.iAno){
+      dma.retorno = 4; 
+      return dma; 
+    } else if ((final.iAno > inicial.iAno) && (final.iMes < inicial.iMes )){
+      dma.retorno = 4; 
+      return dma; 
+    } else if ((final.iAno > inicial.iAno) && (final.iMes > inicial.iMes ) && ( final.iDia < inicial.iDia)){
+      dma.retorno = 4; 
       return dma;
-    }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
-      return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
-      
-      //calcule a distancia entre as datas
-
-
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
     }
+
+    //calcule a distancia entre as datas
+    dma.qtdDias = final.iDia - inicial.iDia; 
+    dma.qtdMeses = final.iMes - inicial.iMes; 
+    dma.qtdAnos = final.iAno - inicial.iAno; 
+
+
+
+    // caso a data final seja menor em dia ou mes 
+
+
+    // int qtDi; 
+    // if(inicial.iMes == 1 ||
+    // inicial.iMes == 3 ||
+    // inicial.iMes == 5 ||
+    // inicial.iMes == 7 ||
+    // inicial.iMes == 8 ||
+    // inicial.iMes == 10 ||
+    // inicial.iMes == 12){
+      
+    //   qtdD = 31 - inicial.iDia; 
+    // }else if (inicial.iMes == 1 )
+    
+
+
+
+
+    //se tudo der certo
+    dma.retorno = 1;
+    return dma;
+    
+  }
     
 }
 
@@ -228,9 +266,29 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+  int qtdOcorrencias = 0;
+  int tamanho = strlen(texto);
+  char *textocopy = malloc(strlen(texto)+ 1); // trabalhar com uma copia 
+  strcpy(textocopy,texto); 
 
-    return qtdOcorrencias;
+  if(isCaseSensitive == 0){
+    for( int i = 0; i < tamanho ; i++){
+      if(textocopy[i] == c || textocopy[i] == c - 32 ){
+        qtdOcorrencias ++; 
+      }
+    }
+
+  } else {
+    for(int i = 0; i < tamanho ; i++){
+      if(textocopy[i] == c ){
+        qtdOcorrencias ++; 
+      }
+    }
+  }
+
+
+  free(textocopy);
+  return qtdOcorrencias;
 }
 
 /*
@@ -267,25 +325,23 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
-  int index=0; int tamanho; int indexTamanho; 
-  char buffer[20];char inverso[20];  
- 
- //transformar o numero em string para contar as casas
-  sprintf(buffer, "%d", num);
-  tamanho = strlen(buffer); 
-  indexTamanho = tamanho; 
-  //passar a string para a outra string 
+  int n = num;
+  int invertido = 0;
 
-  while(index != tamanho){
-    inverso[index] = buffer[indexTamanho-1];
+  if(n < 0)
+      n = -n; // ignora sinal
 
-    indexTamanho --;
-    index++; 
+  while(n > 0){
+      int dig = n % 10;   // pega o último dígito
+      invertido = invertido * 10 + dig; 
+      n /= 10;
   }
 
-  inverso[tamanho] = '\0'; 
-  num = atoi(inverso); 
+  if(num < 0){
+      invetido *= - invertido; // devolve o sinal
+  }
 
+  num = invertido; 
   return num;
 }
 
