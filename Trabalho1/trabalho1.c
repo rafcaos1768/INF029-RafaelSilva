@@ -438,8 +438,71 @@ int q6(int numerobase, int numerobusca)
 
  int q7(char matriz[8][10], char palavra[5])
  {
-     int achou;
-     return achou;
+    int achou = 0;
+  int i = 0, j = 0;
+
+  int tam = 0;
+  while (palavra[tam] != '\0') {
+      tam++;
+  }
+
+  // direções
+  int direcoes[8][2] = {
+      {0, 1},    // direita
+      {0, -1},   // esquerda
+      {1, 0},    // baixo
+      {-1, 0},   // cima
+      {1, 1},    // diagonal para baixo direita
+      {-1, -1},  // diagonal para cima esquerda
+      {1, -1},   // diagonal para baixo esquerda
+      {-1, 1}    // diagonal para cima direita
+  };
+
+  // percorrer a matriz
+  for (i = 0; i < 8; i++) {
+      for (j = 0; j < 10; j++) {
+
+          // primeira letra bateu
+          if (matriz[i][j] == palavra[0]) {
+
+              int d = 0;
+              for (d = 0; d < 8; d++) {
+
+                  int dx = direcoes[d][0];
+                  int dy = direcoes[d][1];
+
+                  int x = i;
+                  int y = j;
+                  int k = 1;
+
+                  // verificar as outras letras
+                  while (k < tam) {
+
+                      x = x + dx;
+                      y = y + dy;
+
+                      // passou dos limites
+                      if (x < 0 || x >= 8 || y < 0 || y >= 10) {
+                          break;
+                      }
+
+                      if (matriz[x][y] != palavra[k]) {
+                          break;
+                      }
+
+                      k++;
+                  }
+
+                  // achou a palavra inteira
+                  if (k == tam) {
+                      return 1;
+                  }
+              }
+          }
+      }
+  }
+
+  return achou;
  }
 
 
