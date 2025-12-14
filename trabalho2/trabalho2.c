@@ -4,12 +4,8 @@
 
 #include "trabalho2.h"
 
-int * vetorPrincipal[TAM];
+estrutura vetorPrincipal[TAM];
 
-int temEspaco(int posicao){
-   int tamanhoDaEstrutura = sizeof(*vetorPrincipal[posicao]) / sizeof(int); 
-
-}
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -27,7 +23,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
     int retorno = 0;
     // a posicao pode já existir estrutura auxiliar
-    if(vetorPrincipal[posicao] != NULL){
+    if(vetorPrincipal[posicao].lista!= NULL){
         retorno = JA_TEM_ESTRUTURA_AUXILIAR;
         return retorno;
     }
@@ -43,11 +39,10 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
         return retorno;
     }
 
-    int * estrutra = malloc(sizeof(tamanho));
-    vetorPrincipal[posicao] = estrutra; 
+    vetorPrincipal[posicao].lista = malloc(sizeof(tamanho));
 
     // o tamanho ser muito grande
-    if(vetorPrincipal[posicao] == NULL){
+    if(vetorPrincipal[posicao].lista== NULL){
         retorno = SEM_ESPACO_DE_MEMORIA;  
         return retorno; 
     }
@@ -76,33 +71,33 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     // int posicao_invalida = 0;
 
 
-    if (posicao > 10 || posicao < 1)
-        retorno = POSICAO_INVALIDA;
-        return retorno; 
-    else
-    {
-        // testar se existe a estrutura auxiliar
-        if (vetorPrincipal[posicao] == NULL)
-        {
-            if (temEspaco(posicao))
-            {
-                //insere
-                retorno = SUCESSO;
-            }
-            else
-            {
-                retorno = SEM_ESPACO;
-            }
-        }
-        else
-        {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
-            return retorno; 
-        }
-    }
+    // if (posicao > 10 || posicao < 1)
+    //     retorno = POSICAO_INVALIDA;
+    //     return retorno; 
+    // else
+    // {
+    //     // testar se existe a estrutura auxiliar
+    //     if (vetorPrincipal[posicao] == NULL)
+    //     {
+    //         if (temEspaco(posicao))
+    //         {
+    //             //insere
+    //             retorno = SUCESSO;
+    //         }
+    //         else
+    //         {
+    //             retorno = SEM_ESPACO;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         retorno = SEM_ESTRUTURA_AUXILIAR;
+    //         return retorno; 
+    //     }
+    // }
 
-    //deu tudo certo 
-    retorno = SUCESSO; 
+    // //deu tudo certo 
+    // retorno = SUCESSO; 
     return retorno;
 }
 
