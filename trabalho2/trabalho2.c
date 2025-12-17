@@ -291,7 +291,35 @@ Rertono (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int naoEstaVazio = 0; int contador = 0; int contadorVetorAux = 0; 
+
+     for(int i = 0; i < 10; i++){
+        if(vetorPrincipal[i].espaco != 0){
+           naoEstaVazio = 1;
+           break; 
+        }
+    }
+
+    if(naoEstaVazio == 0){
+        retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS; 
+        return retorno; 
+    }
+
+      
+
+    for(int count = 0; count<10 ; count ++){
+        for(int control = 0; control < vetorPrincipal[count].espaco; control ++){
+            vetorAux[contadorVetorAux] = vetorPrincipal[count].lista[control];
+            contadorVetorAux ++;
+        }
+    }
+
+    
+
+
+
+
     return retorno;
 }
 
@@ -306,8 +334,46 @@ Rertono (int)
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int naoEstaVazio = 0; int contadorVetorAux = 0; 
+
+    //verificar se alguma não está vazia
+    for(int i = 0; i < 10; i++){
+        if(vetorPrincipal[i].espaco != 0){
+           naoEstaVazio = 1;
+           break; 
+        }
+    }
+
+    if(naoEstaVazio == 0){
+        retorno = TODAS_ESTRUTURAS_AUXILIARES_VAZIAS; 
+        return retorno; 
+    }
+
+    for(int count = 0; count<10 ; count ++){
+        for(int control = 0; control < vetorPrincipal[count].espaco; control ++){
+            vetorAux[contadorVetorAux] = vetorPrincipal[count].lista[control];
+            contadorVetorAux ++;
+        }
+    }
+
+    
+
+    //ordenação 
+    for(int k = 0; k < contadorVetorAux - 1; k++){
+        for( int j = k +1; j < contadorVetorAux; j++){
+            if(vetorAux[k] > vetorAux[j]){
+                int aux = vetorAux[j];
+                vetorAux[j]= vetorAux[k];
+                vetorAux[k] = aux;
+            }
+        }
+   }
+
+
+
     return retorno;
+
 }
 
 /*
@@ -384,6 +450,9 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 void inicializar()
 {
+    for(int i = 0; i < 10 ; i++){
+        vetorPrincipal[i].lista = NULL; 
+    }
 }
 
 /*
@@ -394,6 +463,13 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+     for(int i = 0; i < 10 ; i++){
+        if(vetorPrincipal[i].lista !=NULL){
+            free(vetorPrincipal[i].lista);
+        }
+        
+    }
+
 }
 
 int buscarNumero(int valor, int posicao){

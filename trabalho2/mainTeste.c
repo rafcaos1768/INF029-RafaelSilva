@@ -25,10 +25,10 @@ int main()
     testeExcluir();
     testeExcluirNumeroEspecifico();
     testeListar();
-    // testeRetornarTodosNumeros();
+    testeRetornarTodosNumeros();
     // testeMudarTamanhoEstrutura();
     // testeListaEncadeada();*/
-    // finalizar();
+    finalizar();
 }
 int ligado = 0;
 void show_log(char *str)
