@@ -39,7 +39,9 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
         return retorno;
     }
 
-    vetorPrincipal[posicao].lista = malloc(sizeof(tamanho));
+    vetorPrincipal[posicao].lista = malloc(sizeof(tamanho));//aloca espaco de acordo com o tamanho 
+    vetorPrincipal[posicao].tam = tamanho; //recebe o tamanho para usos futuros 
+    vetorPrincipal[posicao].espaco = 0; //espaco ocupado
 
     // o tamanho ser muito grande
     if(vetorPrincipal[posicao].lista== NULL){
@@ -71,33 +73,34 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     // int posicao_invalida = 0;
 
 
-    // if (posicao > 10 || posicao < 1)
-    //     retorno = POSICAO_INVALIDA;
-    //     return retorno; 
-    // else
-    // {
-    //     // testar se existe a estrutura auxiliar
-    //     if (vetorPrincipal[posicao] == NULL)
-    //     {
-    //         if (temEspaco(posicao))
-    //         {
-    //             //insere
-    //             retorno = SUCESSO;
-    //         }
-    //         else
-    //         {
-    //             retorno = SEM_ESPACO;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         retorno = SEM_ESTRUTURA_AUXILIAR;
-    //         return retorno; 
-    //     }
-    // }
+    //verificações
+    if (posicao > 10 || posicao < 1){
+        retorno = POSICAO_INVALIDA;
+        return retorno; 
+    }else
+    {
+        // testar se existe a estrutura auxiliar
+        if (vetorPrincipal[posicao].lista != NULL)
+        {
+            if (vetorPrincipal[posicao].espaco >= vetorPrincipal[posicao].tam)
+            {  
+                retorno = SEM_ESPACO;
+                return retorno; 
+            }
+        }
+        else
+        {
+            
+            retorno = SEM_ESTRUTURA_AUXILIAR;
+            return retorno; 
+        }
+    }
 
-    // //deu tudo certo 
-    // retorno = SUCESSO; 
+    vetorPrincipal[posicao].lista[vetorPrincipal[posicao].espaco] = valor; 
+    vetorPrincipal[posicao].espaco ++; 
+
+    //deu tudo certo 
+    retorno = SUCESSO; 
     return retorno;
 }
 
@@ -115,6 +118,26 @@ Rertono (int)
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
     int retorno = SUCESSO;
+    // int ultimoDig = vetorPrincipal[posicao].espaco -vetorPrincipal[posicao].tam; 
+
+     if (posicao > 10 || posicao < 1){
+        retorno = POSICAO_INVALIDA;
+        return retorno; 
+    }else{
+        if(vetorPrincipal[posicao].lista == NULL){
+            retorno = SEM_ESTRUTURA_AUXILIAR;
+            return retorno; 
+        } 
+
+        if(vetorPrincipal[posicao].espaco == 0){
+            retorno = ESTRUTURA_AUXILIAR_VAZIA;
+            return retorno; 
+        }
+    }
+
+
+    vetorPrincipal[posicao].espaco --; 
+
     return retorno;
 }
 
@@ -134,6 +157,39 @@ Rertono (int)
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
     int retorno = SUCESSO;
+    int resultadoDaBusca =-1; 
+
+    if (posicao > 10 || posicao < 1){
+        retorno = POSICAO_INVALIDA;
+        return retorno; 
+    }else {
+
+        if(vetorPrincipal[posicao].lista == NULL){
+            retorno =  SEM_ESTRUTURA_AUXILIAR;
+            return retorno; 
+        }else{
+
+            if(vetorPrincipal[posicao].espaco == 0){
+                retorno = ESTRUTURA_AUXILIAR_VAZIA;
+                return retorno; 
+            }else{
+                resultadoDaBusca = buscarNumero(valor,posicao); 
+                if( resultadoDaBusca == -1){
+                    retorno = NUMERO_INEXISTENTE;
+                    return retorno; 
+                }
+            }
+        }
+        
+    }
+
+    for (int i = resultadoDaBusca; i < vetorPrincipal[posicao].espaco - 1; i++) {
+        vetorPrincipal[posicao].lista[i] = vetorPrincipal[posicao].lista[i + 1];
+    } 
+
+    vetorPrincipal[posicao].espaco--;
+
+
     return retorno;
 }
 
@@ -162,7 +218,22 @@ Retorno (int)
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+
+    if(posicao > 10 || posicao < 1){
+        retorno = POSICAO_INVALIDA; 
+        return retorno;
+
+    }else{
+        if(vetorPrincipal[posicao].lista == NULL){
+            retorno =  SEM_ESTRUTURA_AUXILIAR;
+            return retorno; 
+        }
+    }
+
+    for(int i = 0; i < vetorPrincipal[posicao].espaco ; i++){
+        vetorAux[i] = vetorPrincipal[posicao].lista[i];
+    }
 
     return retorno;
 }
@@ -178,10 +249,34 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+   int retorno = SUCESSO;
 
-    int retorno = 0;
+   
+    if(posicao > 10 || posicao < 1){
+        retorno = POSICAO_INVALIDA; 
+        return retorno;
 
+    }else{
+        if(vetorPrincipal[posicao].lista == NULL){
+            retorno =  SEM_ESTRUTURA_AUXILIAR;
+            return retorno; 
+        }
+    }
     
+    for(int i = 0; i < vetorPrincipal[posicao].espaco ; i++){
+        vetorAux[i] = vetorPrincipal[posicao].lista[i];
+    }
+
+   for(int k = 0; k < vetorPrincipal[posicao].espaco - 1; k++){
+        for( int j = k +1; j < vetorPrincipal[posicao].espaco; j++){
+            if(vetorAux[k] > vetorAux[j]){
+                int aux = vetorAux[j];
+                vetorAux[j]= vetorAux[k];
+                vetorAux[k] = aux;
+            }
+        }
+   }
+
     return retorno;
 }
 
@@ -299,4 +394,17 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+}
+
+int buscarNumero(int valor, int posicao){
+
+    int encontrado = -1; 
+    for(int i = 0; i < vetorPrincipal[posicao].tam ; i++){
+        if(vetorPrincipal[posicao].lista[i] == valor){
+            encontrado = i; 
+            break; 
+        }
+    }
+
+    return encontrado;
 }

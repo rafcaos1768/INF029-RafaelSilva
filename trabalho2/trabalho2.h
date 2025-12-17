@@ -17,7 +17,13 @@ typedef struct reg {
 typedef struct estrutura{
     int * lista; 
     int tam;
+    int espaco;
 } estrutura; 
+
+// typedef struct busca{
+//     int achei;
+//     int encontrado; 
+// }busca; 
 
 int criarEstruturaAuxiliar(int posicao, int tamanho);
 int inserirNumeroEmEstrutura(int posicao, int valor);
@@ -32,6 +38,7 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao);
 No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
+int buscarNumero(int valor ,int posicao);
 
 void inicializar();
 void finalizar();
