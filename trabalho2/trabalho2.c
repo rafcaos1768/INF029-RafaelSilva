@@ -390,7 +390,41 @@ Rertono (int)
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
 
-    int retorno = 0;
+    int retorno = SUCESSO;
+    int newTam  = novoTamanho + vetorPrincipal[posicao].tam;
+
+ // se posição é um valor válido {entre 1 e 10}
+    if(posicao > 10 || posicao < 1){  
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+
+    if(newTam < 1){
+        retorno = NOVO_TAMANHO_INVALIDO;
+        return retorno;
+    }
+
+    if(vetorPrincipal[posicao].lista == NULL){
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno; 
+    }
+   
+    vetorPrincipal[posicao].lista = realloc(vetorPrincipal[posicao].lista, newTam * sizeof(int) );
+
+    //verificar se o novo tamanho alocado retorna a NULL
+    if(vetorPrincipal[posicao].lista == NULL){
+        retorno = SEM_ESPACO_DE_MEMORIA; 
+        return retorno; 
+    }
+
+
+    vetorPrincipal[posicao].tam = newTam; 
+    if(vetorPrincipal[posicao].espaco > newTam){
+        vetorPrincipal[posicao].espaco =  newTam;
+    }
+   
+
+
     return retorno;
 }
 
@@ -408,6 +442,24 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao)
 
     int retorno = 0;
 
+    // se posição é um valor válido {entre 1 e 10}
+    if(posicao > 10 || posicao < 1){  
+        retorno = POSICAO_INVALIDA;
+        return retorno;
+    }
+
+    if(vetorPrincipal[posicao].lista == NULL){
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno; 
+    }
+
+    if(vetorPrincipal[posicao].lista == NULL){
+        retorno = SEM_ESTRUTURA_AUXILIAR;
+        return retorno; 
+    }
+
+    
+    retorno = vetorPrincipal[posicao].espaco; 
     return retorno;
 }
 
