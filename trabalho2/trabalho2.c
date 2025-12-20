@@ -472,8 +472,45 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+    No *cabecote = NULL;
+    No *ultimo = NULL;
+    int encontrou = 0;
 
-    return NULL;
+    // cria o nó cabeçote
+    cabecote = (No *) malloc(sizeof(No));
+    if (cabecote == NULL) return NULL;
+
+    cabecote->prox = NULL;
+    ultimo = cabecote;
+
+    // percorre todas as estruturas
+    for (int i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i].lista != NULL) {
+            for (int j = 0; j < vetorPrincipal[i].tam; j++) {
+
+                No *novo = (No *) malloc(sizeof(No));
+                if (novo == NULL) {
+                    destruirListaEncadeadaComCabecote(&cabecote);
+                    return NULL;
+                }
+
+                novo->conteudo = vetorPrincipal[i].lista[j];
+                novo->prox = NULL;
+
+                ultimo->prox = novo;
+                ultimo = novo;
+
+                encontrou = 1;
+            }
+        }
+    }
+
+    if (!encontrou) {
+        free(cabecote);
+        return NULL;
+    }
+
+    return cabecote;
 }
 
 /*
@@ -482,6 +519,17 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+    // if (inicio == NULL) return;
+
+    // int i = 0;
+    // No *aux = inicio->prox;
+
+    // while (aux != NULL) {
+    //     vetorAux[i] = aux->conteudo;
+    //     printf("cont %d\n", aux-> conteudo);
+    //     aux = aux->prox;
+    //     i++;
+    // }
 }
 
 /*
@@ -493,6 +541,18 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+     if (inicio == NULL || *inicio == NULL) return;
+
+    No *aux = *inicio;
+    No *temp;
+
+    while (aux != NULL) {
+        temp = aux;
+        aux = aux->prox;
+        free(temp);
+    }
+
+    *inicio = NULL;
 }
 
 /*
